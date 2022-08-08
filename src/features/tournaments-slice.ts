@@ -29,7 +29,6 @@ const initialState: InitialState = {
   error: ''
 };
 
-// Generates pending, fulfilled and rejected action types
 export const fetchTournaments = createAsyncThunk(
   'tournament/fetchTournaments',
   (q?: string) => {

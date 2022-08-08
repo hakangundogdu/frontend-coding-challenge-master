@@ -36,7 +36,7 @@ const TournamentBox = ({ tournament }: TournamentProps) => {
   }).format(Date.parse(tournament.startDate));
 
   return (
-    <Box>
+    <Wrapper>
       <H6>{tournament.name}</H6>
       <p>{`Organizer: ${tournament.organizer}`}</p>
       <p>{`Game: ${tournament.game}`}</p>
@@ -44,13 +44,13 @@ const TournamentBox = ({ tournament }: TournamentProps) => {
       <p>{`Start: ${dateGB}`}</p>
       <EditButton onClick={editHandle}>EDIT</EditButton>
       <DeleteButton onClick={deleteHandle}>DELETE</DeleteButton>
-    </Box>
+    </Wrapper>
   );
 };
 
 export default TournamentBox;
 
-const Box = styled.div`
+const Wrapper = styled.div`
   border-radius: ${theme.borderRadius};
   background-color: ${theme.palette.background.base};
   padding: ${theme.spacing(6)};
