@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { fetchTournaments } from '../features/tournaments-slice';
+import React from 'react';
+import { useAppSelector } from '../app/hooks';
 import styled from 'styled-components';
 import theme from '../theme';
 import TournamentBox from './TournamentBox';
@@ -8,11 +7,6 @@ import Message from './Message';
 
 const Tournaments: React.FC = () => {
   const tournaments = useAppSelector(state => state.tournaments);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchTournaments());
-  }, [dispatch]);
 
   return (
     <>

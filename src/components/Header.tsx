@@ -13,19 +13,25 @@ import Input from '../components/Input';
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
   const [query, setQuery] = React.useState<string>('');
+  const [initial, setInitial] = React.useState<boolean>(true);
 
   const searchHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      dispatch(fetchTournaments(query));
-    }, 500);
+    if (initial) {
+      dispatch(fetchTournaments());
+      setInitial(false);
+    } else {
+      const handler = setTimeout(() => {
+        dispatch(fetchTournaments(query));
+      }, 500);
 
-    return () => {
-      clearTimeout(handler);
-    };
+      return () => {
+        clearTimeout(handler);
+      };
+    }
   }, [query, dispatch]);
 
   const createHandle = (event: React.MouseEvent<HTMLButtonElement>): void => {
