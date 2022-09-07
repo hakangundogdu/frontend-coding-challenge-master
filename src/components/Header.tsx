@@ -42,6 +42,43 @@ const Header: React.FC = () => {
     }
   };
 
+  type List = Folder[];
+
+  type Folder = {
+    id: string;
+    name: string;
+    files: File[];
+  };
+
+  type File = {
+    id: string;
+    name: string;
+  };
+
+  function move(list: List, source: string, destination: string): List {
+    throw new Error('Not implemented');
+
+    console.log(list, source, destination);
+  }
+
+  const a = [
+    {
+      id: '1',
+      name: 'Folder 1',
+      files: [
+        { id: '2', name: 'File 1' },
+        { id: '3', name: 'File 2' },
+        { id: '4', name: 'File 3' },
+        { id: '5', name: 'File 4' }
+      ]
+    },
+    {
+      id: '6',
+      name: 'Folder 2',
+      files: [{ id: '7', name: 'File 5' }]
+    }
+  ];
+
   return (
     <Wrapper>
       <Input

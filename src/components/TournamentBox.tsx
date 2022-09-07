@@ -1,10 +1,5 @@
 import React from 'react';
 import { Tournament } from '../features/tournaments-slice';
-import {
-  deleteTournament,
-  updateTournament
-} from '../features/tournaments-slice';
-import { useAppDispatch } from '../app/hooks';
 
 import styled from 'styled-components';
 import theme from '../theme';
@@ -13,23 +8,15 @@ import Button from './Button';
 
 interface TournamentProps {
   tournament: Tournament;
+  deleteHandle: (id: string) => void;
+  editHandle: (id: string, name: string) => void;
 }
 
-const TournamentBox = ({ tournament }: TournamentProps) => {
-  const dispatch = useAppDispatch();
-
-  const deleteHandle = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    if (window.confirm('Do you really want to delete this tournament?')) {
-      dispatch(deleteTournament(tournament.id));
-    }
-  };
-
-  const editHandle = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    const tournamentName = prompt('New Tournament Name:', tournament.name);
-    tournamentName &&
-      dispatch(updateTournament({ id: tournament.id, name: tournamentName }));
-  };
-
+const TournamentBox = ({
+  tournament,
+  deleteHandle,
+  editHandle
+}: TournamentProps) => {
   const dateGB = new Intl.DateTimeFormat('en-GB', {
     dateStyle: 'short',
     timeStyle: 'medium'
@@ -42,8 +29,12 @@ const TournamentBox = ({ tournament }: TournamentProps) => {
       <p>{`Game: ${tournament.game}`}</p>
       <p>{`Participants: ${tournament.participants.current}/${tournament.participants.max}`}</p>
       <p>{`Start: ${dateGB}`}</p>
-      <EditButton onClick={editHandle}>EDIT</EditButton>
-      <DeleteButton onClick={deleteHandle}>DELETE</DeleteButton>
+      <ButtonContainer>
+        <Button onClick={() => editHandle(tournament.id, tournament.name)}>
+          EDIT
+        </Button>
+        <Button onClick={() => deleteHandle(tournament.id)}>DELETE</Button>
+      </ButtonContainer>
     </Wrapper>
   );
 };
@@ -56,10 +47,9 @@ const Wrapper = styled.div`
   padding: ${theme.spacing(6)};
 `;
 
-const EditButton = styled(Button)`
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${theme.spacing(2)};
   margin-top: ${theme.spacing(2)};
-`;
-
-const DeleteButton = styled(Button)`
-  margin-left: ${theme.spacing(2)};
 `;
